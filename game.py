@@ -5,7 +5,7 @@ import pygame
 import time
 import random
 
-snake_speed = 15
+snake_speed = 10
 
 window_x = 720
 window_y = 480
@@ -18,7 +18,7 @@ blue = pygame.Color(0, 0, 255)
 
 pygame.init()
 
-pygame.display.set_caption('GeeksforGeeks Snakes')
+pygame.display.set_caption('Snake')
 game_window = pygame.display.set_mode((window_x, window_y))
 
 fps = pygame.time.Clock()
@@ -43,11 +43,8 @@ score = 0
 def show_score(choice, color, font, size):
 
 	score_font = pygame.font.SysFont(font, size)
-	
 	score_surface = score_font.render('Score : ' + str(score), True, color)
-	
 	score_rect = score_surface.get_rect()
-	
 	game_window.blit(score_surface, score_rect)
 
 def game_over():
@@ -96,7 +93,7 @@ while True:
 
 	snake_body.insert(0, list(snake_position))
 	if snake_position[0] == fruit_position[0] and snake_position[1] == fruit_position[1]:
-		score += 10
+		score += 1
 		fruit_spawn = False
 	else:
 		snake_body.pop()
