@@ -1,0 +1,11 @@
+# SETUP INSTRUCTIONS
+
+# make sure python and pip is properly installed
+
+# pip install gym==0.25.2 tensorflow keras-rl2 numpy
+
+# pip install pyglet
+
+# pip install protobuf==3.20.*
+
+#
