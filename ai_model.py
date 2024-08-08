@@ -60,10 +60,10 @@ if __name__ == "__main__":
     done = False
     batch_size = 32
 
-    for e in range(5):  # was originally 1000 or something crazy like that idk
+    for e in range(200):  # was originally 1000 or something crazy like that idk
         state = env.reset()
         state = np.reshape(state, [1, state_size])
-        for time in range(10): # was 500 
+        for time in range(100): # was 500 
             env.render()  # Uncomment to render the game
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
