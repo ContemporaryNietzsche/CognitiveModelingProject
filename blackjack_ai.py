@@ -1,7 +1,7 @@
 import gymnasium as gym
 import numpy as np
 from collections import defaultdict
-
+import matplotlib.pyplot as plt
 
 class QLearningAgent:
     def __init__(self, state_dim, action_dim, lr=0.1, gamma=0.99, epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01):
@@ -38,7 +38,10 @@ state_dim = 3
 action_dim = env.action_space.n
 agent = QLearningAgent(state_dim, action_dim)
 
-num_episodes = 1000
+num_episodes = 100
+net_wins = []
+
+cumulative_wins = 0
 
 for episode in range(num_episodes):
     state, info = env.reset()
@@ -55,11 +58,22 @@ for episode in range(num_episodes):
         state = next_state
         total_reward += reward
 
-        print(
-            f"Episode: {episode}, State: {state}, Action: {action}, Reward: {reward}, Total Reward: {total_reward}")
+    if total_reward > 0:
+        cumulative_wins += 1
+    elif total_reward < 0:
+        cumulative_wins -= 1
+
+    net_wins.append(cumulative_wins)
 
     if episode % 10 == 0:
-        print(
-            f"Episode {episode} completed, Total Reward: {total_reward}, Epsilon: {agent.epsilon}")
+        print(f"Episode {episode} completed, Total Reward: {total_reward}, Epsilon: {agent.epsilon}")
 
 env.close()
+
+# Plotting the graph
+plt.plot(range(num_episodes), net_wins, label='Net Wins')
+plt.xlabel('Number of Games')
+plt.ylabel('Net Wins')
+plt.title('Net Wins (Cumulative Wins - Losses) over Time')
+plt.legend()
+plt.show()
